@@ -8,10 +8,11 @@
             </div>
         </div>
         <div class="menu">
-            <ul class="main-menu">
+            <ul class="main-menu" :class="{'active':active}">
                 <li v-for="item,i in menu" :key="i" class="menu-item">
-                    <a href="">{{item.name}}</a>
-                    <ul v-if="item.submenu" class="sub-menu">
+                    <a :href="item.link" v-if="item.link">{{item.name}}</a>
+                    <a @click="openSub('sub'+i)" v-if="!item.link">{{item.name}}</a>
+                    <ul :id="'sub'+i" v-if="item.submenu" class="sub-menu">
                         <li v-for="subitem,i in item.submenu" :key="i" class="menu-item">
                             <a href="">{{subitem.name}}</a>
                         </li>
@@ -19,17 +20,30 @@
                 </li>
             </ul>
         </div>
+        <button @click="active = !active" class="burger" :class="{'active':active}">
+            <i class="fas fa-bars"></i>
+        </button>
     </div>
 </div>
 </template>
 
 <script>
 export default {
+    methods: {
+        openSub(id) {
+          if (document.getElementById(id).offsetHeight == 0) {
+              document.getElementById(id).style.height = `${document.getElementById(id).scrollHeight}px`
+          } else{
+              document.getElementById(id).style.height = "0px"
+          }
+        }
+    },
     data() {
         return {
+            active: false,
             menu: [{
                     name: 'Главная',
-                    link: ''
+                    link: '1'
                 },
                 {
                     name: 'Услуги',
@@ -58,11 +72,11 @@ export default {
                 },
                 {
                     name: 'О нас',
-                    link: ''
+                    link: '1'
                 },
                 {
                     name: 'Контакты',
-                    link: ''
+                    link: '1'
                 },
             ]
         }
@@ -71,31 +85,35 @@ export default {
 </script>
 
 <style>
-.logo{
+
+.logo {
     display: flex;
     align-items: center;
     padding: 30px 0;
 }
-.logo-img{
+
+.logo-img {
     height: 60px;
     width: 100px;
     background: url('/img/logo.png') no-repeat center center / contain;
 }
-.logo-text h2{
+
+.logo-text h2 {
     color: white;
     font-size: 35px;
     line-height: 35px;
 }
-.logo-text span{
+
+.logo-text span {
     font-size: 14px;
 }
+
 .top-line {
-    position: fixed;
+    position: absolute;
     top: 0;
     right: 0;
     left: 0;
     z-index: 800;
-    background: #00000027;
 
 }
 
@@ -107,10 +125,12 @@ export default {
     max-width: 1170px;
     margin: 0 auto;
 }
-.main-menu{
+
+.main-menu {
     display: flex;
 }
-.menu-item a{
+
+.menu-item a {
     color: white;
     font-weight: 800;
     font-size: 16px;
@@ -119,13 +139,14 @@ export default {
     text-transform: uppercase;
 }
 
-.menu-item{
+.menu-item {
     list-style: none;
     position: relative;
     padding: 20px;
-    
+
 }
-.sub-menu{
+
+.sub-menu {
     background: white;
     border-radius: 25px;
     display: none;
@@ -135,22 +156,103 @@ export default {
     flex-direction: column;
     padding: 10px 25px;
     transition: all .3s;
-    
+
 }
-.menu-item a:hover{
+
+.menu-item a:hover {
     color: #e2c445
 }
-.menu-item:hover .sub-menu, .sub-menu:hover{
+
+.menu-item:hover .sub-menu,
+.sub-menu:hover {
     display: flex;
 }
-.sub-menu a{
+
+.sub-menu a {
     color: #333333
 }
-.sub-menu .menu-item{
+
+.sub-menu .menu-item {
     margin: 10px 0;
     padding: 0;
 }
-.menu-item:last-child{
+
+.menu-item:last-child {
     padding-right: 0;
+}
+
+.burger {
+    display: none;
+}
+
+@media (max-width: 710px) {
+    .top-line .container {
+        position: relative;
+    }
+
+    .main-menu {
+        position: fixed;
+        flex-direction: column;
+        height: 100vh;
+        top: 0;
+        right: -1px;
+        width: 250px;
+        background-color: white;
+        padding-top: 80px;
+        transform: translateX(300px);
+        transition: all .3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    .main-menu.active {
+        transform: translateX(0);
+    }
+
+    .menu-item a {
+        color: #333;
+    }
+
+    .burger {
+        display: flex;
+        font-size: 30px;
+        color: white;
+        background: transparent;
+        border: 0;
+        cursor: pointer;
+        position: relative;
+        z-index: 500;
+        transition: all .3s;
+    }
+
+    .burger.active {
+        color: #333;
+
+    }
+
+    .sub-menu {
+        box-sizing: border-box;
+        position: static;
+        display: block;
+        padding: 0px 10px 0px 10px;
+        transition: all .3s cubic-bezier(0.165, 0.84, 0.44, 1);
+        height: 0;
+        overflow: hidden;
+    }
+
+    .menu-item {
+        padding: 10px 20px;
+    }
+    .sub-menu .menu-item{
+        padding: 0px;
+        margin: 5px
+    }
+
+}
+@media (max-width: 500px){
+    .logo{
+        padding: 20px 0;
+    }
+    .logo-img{
+        width: 60px;
+    }
 }
 </style>

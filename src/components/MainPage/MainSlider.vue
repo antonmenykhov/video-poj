@@ -46,26 +46,28 @@
 <script>
 export default {
     mounted() {
-        
-           setTimeout(this.changeSlide, 7000)
-        
+        setTimeout(this.changeSlide, 7000)
+        document.getElementById('slider').scrollTo({
+                top: 50,
+            })
+
     },
     methods: {
         changeSlide() {
             if (this.slideNum < this.slides.length - 1) {
                 this.slideNum++
-                
+
             } else {
                 this.slideNum = 0
             }
 
             let slides = document.getElementsByClassName('slide')
-            let elemTop = slides[this.slideNum].getBoundingClientRect().y
-            document.getElementById('slider').scrollBy({
+            let elemTop = slides[this.slideNum].offsetTop - slides[this.slideNum].scrollTop + slides[this.slideNum].clientTop
+            document.getElementById('slider').scrollTo({
                 top: elemTop,
                 behavior: 'smooth'
             })
-            if (this.autoPlay){
+            if (this.autoPlay) {
                 setTimeout(this.changeSlide, 7000)
             }
 
@@ -99,7 +101,7 @@ export default {
                 {
 
                     title: 'Пожарная и охранная сигнализация',
-                    description: 'Системы пожарной и охранной сигнализации - базовый набор для обеспечения безопасности на объекте. Современные системы позволяют своевреммно выявлять нарушения с точонстью до 1м ',
+                    description: 'Системы пожарной и охранной сигнализации - базовый набор для обеспечения безопасности на объекте. Современные системы позволяют своевреммно выявлять нарушения с точонстью до 1 м ',
                     link: '',
                     image: 'skud3.jpg'
                 },
@@ -222,7 +224,7 @@ span {
 }
 
 .slide-overlay {
-    position: fixed;
+    position: absolute;
     background: url('/img/overlay.png') repeat-y;
     top: 0;
     bottom: 0;
@@ -303,6 +305,40 @@ span {
 @keyframes unGrow {
     50% {
         transform: scale(1);
+    }
+}
+@media (max-width: 1220px){
+    .container, .slide-contacts{
+        padding: 0 20px;
+    }
+    .slider .title{
+        padding-right: 40px;
+        padding-left: 40px;
+    }
+}
+@media (max-width:890px){
+    .slide-text .title{
+        font-size: 35px;
+    }
+    .slide-text .description{
+        padding: 0 50px;
+    }
+}
+@media (max-width: 550px){
+    
+    .slide-contacts{
+        display: none;
+    }
+    .slide-text .title{
+        font-size: 20px;
+    }
+    .slide-text button{
+        font-size: 14px;
+    }
+    .slide-text button span{
+        height: 30px;
+        width: 30px;
+        font-size: 15px;
     }
 }
 </style>

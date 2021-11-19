@@ -61,7 +61,7 @@ section.icons {
     padding: 40px 0;
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: stretch;
 }
 
 .icon-wrapper {
@@ -69,8 +69,13 @@ section.icons {
     flex-direction: column;
     align-items: center;
     flex: 1 1 150px;
-    margin: 0 20px;
+    box-sizing: border-box;
+    padding: 0 20px;
     cursor: pointer;
+    border-right: 1px dotted black;
+}
+.icon-wrapper:last-child{
+    border-right: 0;
 }
 
 .icon-wrapper .icon {
@@ -86,7 +91,7 @@ section.icons {
 
 .icon-wrapper .icon-name {
     font-size: 18px;
-    font-weight: 800;
+    font-weight: 600;
     margin-top: 20px;
     color: #333;
     text-align: center;
@@ -94,5 +99,15 @@ section.icons {
 }
 .icon-wrapper:hover .icon-name{
     color: #e2c445
+}
+@media(max-width: 1050px){
+    .icon-wrapper .icon{
+        height: 50px;
+    }
+}
+@media (max-width: 870px){
+    section.icons{
+        display: none;
+    }
 }
 </style>
