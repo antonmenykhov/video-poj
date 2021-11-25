@@ -9,7 +9,7 @@
         </div>
         <div class="service-header-img flex">
             <div class="image-container">
-                <img :src="mainImage" :alt="name">
+                <img :src="mainImage.sizes.medium_large" :alt="name">
                 <div class="orange-line"></div>
             </div>
 
@@ -32,7 +32,7 @@ export default {
 .service-header {
     background-color: #253237;
 }
-.service-header-img{
+.service-header-img.flex{
     width: 70%;
 }
 .service-container{
@@ -75,12 +75,52 @@ h1{
 }
 
 
-.serv-description{
+.serv-description.description{
     margin-top: 20px;
     max-width: 500px;
+    color: white;
 }
 .service-up-header{
     font-size: 40px;
     color: rgb(227,198,74)
+}
+@media (max-width:1200px){
+   .service-header .service-container{
+        padding: 100px 20px;
+    }
+    .service-header-text{
+        left: 20px;
+    }
+
+}
+@media (max-width:800px){
+    .image-container{
+        height: 350px;
+    }
+}
+@media (max-width:800px){
+    .service-header-text{
+        margin-top: 50px;
+        position: static;
+    }
+    .image-container{display: none;
+    }
+    .service-up-header{
+        font-size: 30px;
+    }
+    h1{
+        font-size: 40px;
+    }
+    .serv-description{
+        font-size: 16px;
+    }
+}
+@media (max-width: 400px){
+    h1{
+        font-size: 25px;
+    }
+    .service-up-header{
+        font-size: 18px;
+    }
 }
 </style>

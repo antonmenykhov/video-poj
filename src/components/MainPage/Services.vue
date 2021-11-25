@@ -3,15 +3,15 @@
     <div class="container column">
         <div class="up-header">что мы предлагаем</div>
         <div class="title">Наши услуги</div>
-        <div class="description">Vestibulum commodo at dolor eu aliquam. In congue ornare augue eu scelerisque. Duis vestibulum, dolor sed facilisis laoreet.</div>
+        <div class="description">Здесь вы можете ознакомиться с широким перечнем услуг, которые предлагает наша компания</div>
         <div class="services-holder flex">
-            <div v-for="service in services" :key="service.name" class="service-wrapper">
-                <img :src="service.image" :alt="service.name" class="service-img">
+            <router-link :to="service.link" v-for="service in services" :key="service.name" class="service-wrapper">
+                <img :src="service.mainImage.sizes.medium_large" :alt="service.name" class="service-img">
                 <h4 class="service-title">{{service.name}}</h4>
                 <p class="service-description">{{service.smallDescription}}</p>
                   <button class="orange-button service-button">Узнать больше <span class="fa fa-arrow-right"></span></button>
                 <div class="orange-line"></div>
-            </div>
+            </router-link>
         </div>
     </div>
 </section>
@@ -19,47 +19,9 @@
 
 <script>
 export default {
-    data() {
-        return {
-            services: [{
-                    name: 'Видеонаблюдение',
-                    smallDescription: 'Vestibulum commodo at dolor eu aliquam. In congue ornare augue eu scelerisque. Duis vestibulum, dolor sed facilisis laoreet.',
-                    link: '',
-                    image: 'http://rigardi.like-themes.com/wp-content/uploads/2018/04/service_01-778x610.jpg'
-                },
-                {
-                    name: 'Видеонаблюдение Видеонаблюдение',
-                    smallDescription: 'Vestibulum commodo at dolor eu aliquam. In congue ornare augue eu scelerisque. Duis vestibulum, dolor sed facilisis laoreet.',
-                    link: '',
-                    image: 'http://rigardi.like-themes.com/wp-content/uploads/2018/04/service_01-778x610.jpg'
-                },
-                {
-                    name: 'Домофония',
-                    smallDescription: 'Vestibulum commodo at dolor eu aliquam. In congue ornare augue eu scelerisque. Duis vestibulum, dolor sed facilisis laoreet.',
-                    link: '',
-                    image: 'http://rigardi.like-themes.com/wp-content/uploads/2018/04/service_01-778x610.jpg'
-                },
-                {
-                    name: 'Пожарная сигнализация',
-                    smallDescription: 'Vestibulum commodo at dolor eu aliquam. In congue ornare augue eu scelerisque. Duis vestibulum, dolor sed facilisis laoreet.',
-                    link: '',
-                    image: 'http://rigardi.like-themes.com/wp-content/uploads/2018/04/service_01-778x610.jpg'
-                },
-                {
-                    name: 'Видеонаблюдение',
-                    smallDescription: 'Vestibulum commodo at dolor eu aliquam. In congue ornare augue eu scelerisque. Duis vestibulum, dolor sed facilisis laoreet.',
-                    link: '',
-                    image: 'http://rigardi.like-themes.com/wp-content/uploads/2018/04/service_01-778x610.jpg'
-                },
-                {
-                    name: 'Видеонаблюдение',
-                    smallDescription: 'Vestibulum commodo at dolor eu aliquam. In congue ornare augue eu scelerisque. Duis vestibulum, dolor sed facilisis laoreet.',
-                    link: '',
-                    image: 'http://rigardi.like-themes.com/wp-content/uploads/2018/04/service_01-778x610.jpg'
-                },
-            ]
-        }
-    },
+    props:{
+        services: Array
+    }
 }
 </script>
 
@@ -87,6 +49,7 @@ export default {
     z-index: 1;
     padding: 40px 30px;
     cursor: pointer;
+    text-decoration: none;
 }
 
 .service-wrapper:nth-child(3n) {

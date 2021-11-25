@@ -26,7 +26,7 @@ export default {
         name: String,
         smallDescription: String,
         description: String,
-        mainImage: String,
+        mainImage: Object,
         images: Array,
         brands: Array,
         tasks: Array,
@@ -41,5 +41,7 @@ export default {
 </script>
 
 <style>
-
+.service .container{
+    flex-wrap: wrap;
+}
 </style>

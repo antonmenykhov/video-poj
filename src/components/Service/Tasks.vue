@@ -27,6 +27,7 @@ export default {
     background: rgb(250, 250, 250);
 }
 .task{
+    flex: 1 1 150px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -49,13 +50,21 @@ export default {
     font-size: 20px;
     color: #333;
     text-align: center;
+    min-height: 50px;
 }
 .task-description{
     text-align: center;
     color: #686868;
 }
 .tasks-title{
+    flex: 1 1 150px;
     padding: 20px;
     margin-bottom: 0;
+}
+@media (max-width: 320px) {
+    .tasks-title{
+        text-align: center;
+    }
+    
 }
 </style>

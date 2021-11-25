@@ -4,7 +4,7 @@
     <div class="container">
         <div v-for="item in sostav" :key="item.name" class="sostav-item">
             <div class="image-wrapper">
-                <img class="sostav-img" :src="item.image" :alt="item.name">
+                <img class="sostav-img" :src="item.image.sizes.medium" :alt="item.name">
             </div>
             <h5 class="task-header">{{item.name}}</h5>
             <p class="task-description">{{item.description}}</p>
@@ -31,6 +31,9 @@ export default {
     padding: 50px 0;
     margin-bottom: 50px;
 }
+.sostav .container{
+    align-items: flex-start;
+}
 .sostav-item {
     margin-top: 30px;
     margin-right: 10px;
@@ -53,7 +56,7 @@ export default {
 .sostav-img {
     height: 100%;
     width: 100%;
-    object-fit: cover;
+    object-fit: contain;
 
 }
 </style>

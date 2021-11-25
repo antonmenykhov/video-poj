@@ -1,16 +1,14 @@
 <template>
-  <div class="home">
-    <header>
-      <TopLine />
-      <MainSlider />
-      <Icons />
-      <about-us />
-      <how-works />
-      <services />
-      <phone-cons />
-    </header>
-  
-  </div>
+<div class="home">
+    <TopLine />
+    <MainSlider :slides="info" />
+    <Icons />
+    <about-us />
+    <how-works />
+    <services :services="info" />
+    <phone-cons />
+
+</div>
 </template>
 
 <script>
@@ -23,18 +21,29 @@ import PhoneCons from '../components/MainPage/PhoneCons.vue'
 import Services from '../components/MainPage/Services.vue'
 // @ is an alias to /src
 
-
 export default {
-  name: 'Home',
-  components: {
-    MainSlider,
-    TopLine,
-    Icons,
-    AboutUs,
-    HowWorks,
-    Services,
-    PhoneCons
-   
-  }
+    created() {
+      document.title="ReGuard | Системы безопасности в Тюмени"
+        this.info = JSON.parse(localStorage.getItem('main'))
+        this.$eventBus.$on('changeMain', data => { this.info = data })
+    },
+    destroyed() {
+      this.$eventBus.$off('changeMain')
+    },
+    name: 'Home',
+    components: {
+        MainSlider,
+        TopLine,
+        Icons,
+        AboutUs,
+        HowWorks,
+        Services,
+        PhoneCons
+    },
+    data() {
+        return {
+            info: []
+        }
+    }
 }
 </script>

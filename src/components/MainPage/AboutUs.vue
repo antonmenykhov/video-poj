@@ -201,7 +201,7 @@ export default {
     margin-bottom: 20px;
     }
 }
-@media (max-width: 400px) {
+@media (max-width: 375px) {
     .line .input{
         margin-right: 0!important;
     }

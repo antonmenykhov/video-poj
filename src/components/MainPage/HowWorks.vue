@@ -100,7 +100,7 @@ export default {
 }
 
 .white {
-    color: white
+    color: white!important;
 }
 
 .brown {
@@ -108,21 +108,21 @@ export default {
 }
 
 .brown-button {
-    background: #ae4c1c;
-    color: white;
+    background: #ae4c1c!important;
+    color: white!important;
     padding: 0 50px;
     font-size: 18px;
     font-weight: 600;
 }
 
 .brown-button:hover {
-    background: #ae4d1cb0;
+    background: #ae4d1cb0!important;
 }
 
 .time-line-item {
     display: flex;
     align-items: center;
-    margin-bottom: 75px;
+    min-height: 100px;
     position: relative;
     padding-left: 15px;
 }
@@ -136,7 +136,7 @@ export default {
     background: rgb(226, 196, 69);
     width: 2px;
     height: 25px;
-    bottom: 50px;
+    bottom: 85px;
     left: 27px;
     position: absolute;
 }
@@ -262,6 +262,11 @@ export default {
 @media (max-width:890px) {
     .how-works{
         flex-direction: column;
+    }
+}
+@media (max-width:890px) {
+    .how-works-left, .how-works-right{
+        padding: 50px 20px;
     }
 }
 </style>

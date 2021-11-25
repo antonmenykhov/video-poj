@@ -1,7 +1,7 @@
 <template>
 <div class="top-line">
     <div class="container">
-        <div class="logo">
+        <div @click="$router.push({path:'/'})" class="logo">
             <div class="logo-img"></div>
             <div class="logo-text">
                 <h2>ReGuard</h2><span>CCTV and security</span>
@@ -10,11 +10,11 @@
         <div class="menu">
             <ul class="main-menu" :class="{'active':active}">
                 <li v-for="item,i in menu" :key="i" class="menu-item">
-                    <a :href="item.link" v-if="item.link">{{item.name}}</a>
+                    <router-link :to="item.link" v-if="item.link">{{item.name}}</router-link>
                     <a @click="openSub('sub'+i)" v-if="!item.link">{{item.name}}</a>
                     <ul :id="'sub'+i" v-if="item.submenu" class="sub-menu">
                         <li v-for="subitem,i in item.submenu" :key="i" class="menu-item">
-                            <a href="">{{subitem.name}}</a>
+                            <router-link :to="subitem.link">{{subitem.name}}</router-link>
                         </li>
                     </ul>
                 </li>
@@ -31,61 +31,32 @@
 export default {
     methods: {
         openSub(id) {
-          if (document.getElementById(id).offsetHeight == 0) {
-              document.getElementById(id).style.height = `${document.getElementById(id).scrollHeight}px`
-          } else{
-              document.getElementById(id).style.height = "0px"
-          }
+            if (document.body.clientWidth <= 700) {
+                if (document.getElementById(id).offsetHeight == 0) {
+                    document.getElementById(id).style.height = `${document.getElementById(id).scrollHeight}px`
+                } else {
+                    document.getElementById(id).style.height = "0px"
+                }
+            }
         }
+    },
+    created() {
+        this.menu = JSON.parse(localStorage.getItem('menu'))
+        this.$eventBus.$on('changeMenu', data => { this.menu = data })
+    },
+    destroyed() {
+        this.$eventBus.$off('changeMenu')
     },
     data() {
         return {
             active: false,
-            menu: [{
-                    name: 'Главная',
-                    link: '1'
-                },
-                {
-                    name: 'Услуги',
-                    link: '',
-                    submenu: [{
-                            name: 'Видеонаблюдение',
-                            link: ''
-                        },
-                        {
-                            name: 'Контроль доступа',
-                            link: ''
-                        },
-                        {
-                            name: 'Пожарная сигнализация',
-                            link: ''
-                        },
-                        {
-                            name: 'Охранная сигнализация',
-                            link: ''
-                        },
-                        {
-                            name: 'Домофон',
-                            link: ''
-                        },
-                    ]
-                },
-                {
-                    name: 'О нас',
-                    link: '1'
-                },
-                {
-                    name: 'Контакты',
-                    link: '1'
-                },
-            ]
+            menu: []
         }
     },
 }
 </script>
 
 <style>
-
 .logo {
     display: flex;
     align-items: center;
@@ -94,8 +65,8 @@ export default {
 
 .logo-img {
     height: 60px;
-    width: 100px;
-    background: url('/img/logo.png') no-repeat center center / contain;
+    width: 60px;
+    background: url('/img/logo.png') no-repeat left center / contain;
 }
 
 .logo-text h2 {
@@ -241,17 +212,20 @@ export default {
     .menu-item {
         padding: 10px 20px;
     }
-    .sub-menu .menu-item{
+
+    .sub-menu .menu-item {
         padding: 0px;
         margin: 5px
     }
 
 }
-@media (max-width: 500px){
-    .logo{
+
+@media (max-width: 500px) {
+    .logo {
         padding: 20px 0;
     }
-    .logo-img{
+
+    .logo-img {
         width: 60px;
     }
 }

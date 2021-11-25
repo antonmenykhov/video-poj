@@ -27,17 +27,17 @@
 
             </div>
         </div>
-        <div class="slide-img" :style="'background: url(\'/img/'+slide.image+'\') no-repeat center center / cover'"></div>
+        <div class="slide-img" :style="'background: url(\''+slide.mainImage.url+'\') no-repeat center center / cover'"></div>
         <div class="slide-text">
             <div class="title">
-                <h2><span>{{slide.title}}</span></h2>
+                <h2><span>{{slide.name}}</span></h2>
             </div>
             <div class="description">
-                {{slide.description}}
+                {{slide.smallDescription}}
             </div>
-            <button>
+            <router-link :to="slide.link">
                 Узнать подробнее <span class="fa fa-arrow-right"></span>
-            </button>
+            </router-link>
         </div>
     </div>
 </div>
@@ -45,6 +45,9 @@
 
 <script>
 export default {
+    props:{
+        slides: Array
+    },
     mounted() {
         setTimeout(this.changeSlide, 7000)
         document.getElementById('slider').scrollTo({
@@ -83,29 +86,7 @@ export default {
     data() {
         return {
             autoPlay: true,
-            slideNum: 0,
-            slides: [{
-
-                    title: 'Системы видеонаблюдения',
-                    description: 'Современные системы видеонаблюдения - это целый программный комплекс, которые позволяет производить эффективную обработку и анализ получаемой от всех систем безопасности информации на объекте, а также управлять и оперативно реагировать на возникающие события',
-                    link: '',
-                    image: 'video1.jpg'
-                },
-                {
-
-                    title: 'Системы контроля доступа',
-                    description: 'Системы контроля доступа - неотъемлемая часть любой системы безопасности. Граммотно спроектированная система контроля доступа позволяет удобно и безопасно организовывать пропускной режим на обьекте ',
-                    link: '',
-                    image: 'domofon2.jpg'
-                },
-                {
-
-                    title: 'Пожарная и охранная сигнализация',
-                    description: 'Системы пожарной и охранной сигнализации - базовый набор для обеспечения безопасности на объекте. Современные системы позволяют своевреммно выявлять нарушения с точонстью до 1 м ',
-                    link: '',
-                    image: 'skud3.jpg'
-                },
-            ]
+            slideNum: 0
         }
     },
 }
@@ -266,7 +247,7 @@ span {
     margin-bottom: 40px;
 }
 
-.slide-text button {
+.slide-text a {
     border: none;
     color: white;
     font-size: 18px;
@@ -276,10 +257,11 @@ span {
     background: none;
     cursor: pointer;
     transition: all .3s;
+    text-decoration: none;
 
 }
 
-.slide-text button span {
+.slide-text a span {
     transition: all .3s;
     height: 60px;
     width: 60px;
@@ -293,11 +275,11 @@ span {
     margin-left: 15px;
 }
 
-.slide-text button:hover {
+.slide-text a:hover {
     color: #e2c445;
 }
 
-.slide-text button:hover span {
+.slide-text a:hover span {
     background: white;
 
 }

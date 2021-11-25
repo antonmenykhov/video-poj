@@ -4,7 +4,7 @@
         <div class="main-info__slider">
             <el-carousel height="400px" trigger="click">
                 <el-carousel-item v-for="image in images" :key="image">
-                    <img :src="image" alt="Видеонаблюдение">
+                    <img :src="image.sizes.medium_large" alt="Видеонаблюдение">
                 </el-carousel-item>
             </el-carousel>
             <div class="orange-line"></div>
@@ -40,7 +40,7 @@ export default {
 }
 .main-info__slider, .main-info__text{
     flex: 1 1 300px;
-    margin: 50px 0;
+   
 }
 .main-info__text{
     padding: 50px;
@@ -51,5 +51,17 @@ export default {
 .main-info__slider{
     
     position: relative;
+}
+@media (max-width:550px){
+    .el-carousel__container{
+        height: 250px!important;
+    }
+    .main-info__text{
+        padding: 50px 0;
+        flex: 1 1 150px;
+    }
+    .main-info .title{
+        font-size: 25px;
+    }
 }
 </style>
